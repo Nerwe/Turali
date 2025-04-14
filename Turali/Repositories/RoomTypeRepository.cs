@@ -4,7 +4,7 @@ using Turali.Models;
 
 namespace Turali.Repositories
 {
-    public class RoomTypeRepository(TuraliDBContext context) 
+    public class RoomTypeRepository(TuraliDBContext context)
         : RepositoryBase<RoomType>(context), IRoomTypeRepository
     {
         public async Task<IEnumerable<RoomType>> GetRoomTypesWithBasePriceAboveAsync(decimal price)

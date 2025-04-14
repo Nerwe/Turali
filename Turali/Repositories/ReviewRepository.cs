@@ -4,7 +4,7 @@ using Turali.Models;
 
 namespace Turali.Repositories
 {
-    public class ReviewRepository(TuraliDBContext context) 
+    public class ReviewRepository(TuraliDBContext context)
         : RepositoryBase<Review>(context), IReviewRepository
     {
         public async Task<IEnumerable<Review>> GetReviewsByTourIdAsync(int tourId)

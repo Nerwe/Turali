@@ -4,7 +4,7 @@ using Turali.Models;
 
 namespace Turali.Repositories
 {
-    public class TourRepository(TuraliDBContext context) 
+    public class TourRepository(TuraliDBContext context)
         : RepositoryBase<Tour>(context), ITourRepository
     {
         public async Task<IEnumerable<Tour>> GetActiveToursAsync()

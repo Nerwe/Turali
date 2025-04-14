@@ -1,6 +1,8 @@
-﻿namespace Turali.Repositories
+﻿using Turali.Models;
+
+namespace Turali.Repositories
 {
-    public interface IDestinationRepository
+    public interface IDestinationRepository : IRepositoryBase<Destination>
     {
     }
 }

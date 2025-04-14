@@ -2,7 +2,7 @@
 
 namespace Turali.Repositories
 {
-    public interface IRoomTypeRepository
+    public interface IRoomTypeRepository : IRepositoryBase<RoomType>
     {
         Task<IEnumerable<RoomType>> GetRoomTypesWithBasePriceAboveAsync(decimal price);
     }

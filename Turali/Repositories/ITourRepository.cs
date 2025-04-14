@@ -2,7 +2,7 @@
 
 namespace Turali.Repositories
 {
-    public interface ITourRepository
+    public interface ITourRepository : IRepositoryBase<Tour>
     {
         Task<IEnumerable<Tour>> GetActiveToursAsync();
     }

@@ -1,11 +1,18 @@
-﻿using System.Windows;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Turali.Data;
-using Turali.Repositories;
 using System.IO;
+using System.Windows;
+using Turali.Data;
+using Turali.Helpers;
+using Turali.Repositories;
+using Turali.ViewModels;
+using Turali.ViewModels.Client;
+using Turali.ViewModels.Manager;
+using Turali.ViewModels.Order;
+using Turali.ViewModels.Tour;
+using Turali.Views;
 
 namespace Turali
 {
@@ -20,6 +27,7 @@ namespace Turali
                 {
                     config.SetBasePath(Directory.GetCurrentDirectory());
                     config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                    config.AddUserSecrets<App>(optional: true, reloadOnChange: true);
                 })
                 .ConfigureServices((context, services) =>
                 {
@@ -52,6 +60,26 @@ namespace Turali
                     services.AddScoped<ITourRepository, TourRepository>();
                     services.AddScoped<ITransportTypeRepository, TransportTypeRepository>();
                     services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+
+                    services.AddSingleton<CurrentClient>();
+                    services.AddSingleton<CurrentManager>();
+                    services.AddSingleton<CurrentTour>();
+                    services.AddSingleton<CurrentOrder>();
+
+                    services.AddTransient<MainViewModel>();
+                    services.AddTransient<DashboardViewModel>();
+                    services.AddTransient<ClientsViewModel>();
+                    services.AddTransient<ManagersViewModel>();
+                    services.AddTransient<ToursViewModel>();
+                    services.AddTransient<OrdersViewModel>();
+                    services.AddTransient<NewClientViewModel>();
+                    services.AddTransient<NewManagerViewModel>();
+                    services.AddTransient<NewTourViewModel>();
+                    services.AddTransient<NewOrderViewModel>();
+                    services.AddTransient<ClientDetailsViewModel>();
+                    services.AddTransient<ManagerDetailsViewModel>();
+                    services.AddTransient<TourDetailsViewModel>();
+                    services.AddTransient<OrderDetailsViewModel>();
                 })
                 .Build();
         }
@@ -59,6 +87,14 @@ namespace Turali
         protected override async void OnStartup(StartupEventArgs e)
         {
             await _host.StartAsync();
+
+            var mainViewModel = _host.Services.GetRequiredService<MainViewModel>();
+            var mainWindow = new MainView
+            {
+                DataContext = mainViewModel
+            };
+            mainWindow.Show();
+
             base.OnStartup(e);
         }
 

@@ -4,7 +4,7 @@ using Turali.Models;
 
 namespace Turali.Repositories
 {
-    public class HotelRepository(TuraliDBContext context) 
+    public class HotelRepository(TuraliDBContext context)
         : RepositoryBase<Hotel>(context), IHotelRepository
     {
         public async Task<IEnumerable<Hotel>> GetHotelsByDestinationIdAsync(int destinationId)

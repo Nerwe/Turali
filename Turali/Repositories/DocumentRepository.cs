@@ -4,7 +4,7 @@ using Turali.Models;
 
 namespace Turali.Repositories
 {
-    public class DocumentRepository(TuraliDBContext context) 
+    public class DocumentRepository(TuraliDBContext context)
         : RepositoryBase<Document>(context), IDocumentRepository
     {
         public async Task<IEnumerable<Document>> GetDocumentsByClientIdAsync(int clientId)

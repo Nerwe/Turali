@@ -2,7 +2,7 @@
 
 namespace Turali.Repositories
 {
-    public interface IPaymentRepository
+    public interface IPaymentRepository : IRepositoryBase<Payment>
     {
         Task<IEnumerable<Payment>> GetPaymentsByClientIdAsync(int clientId);
     }

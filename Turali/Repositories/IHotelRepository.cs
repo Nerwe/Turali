@@ -2,7 +2,7 @@
 
 namespace Turali.Repositories
 {
-    public interface IHotelRepository
+    public interface IHotelRepository : IRepositoryBase<Hotel>
     {
         Task<IEnumerable<Hotel>> GetHotelsByDestinationIdAsync(int destinationId);
     }

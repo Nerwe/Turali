@@ -4,7 +4,7 @@ using Turali.Models;
 
 namespace Turali.Repositories
 {
-    public class OrderRepository(TuraliDBContext context) 
+    public class OrderRepository(TuraliDBContext context)
         : RepositoryBase<Order>(context), IOrderRepository
     {
         public async Task<IEnumerable<Order>> GetOrdersByClientIdAsync(int clientId)

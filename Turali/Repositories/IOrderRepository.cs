@@ -2,7 +2,7 @@
 
 namespace Turali.Repositories
 {
-    public interface IOrderRepository
+    public interface IOrderRepository : IRepositoryBase<Order>
     {
         Task<IEnumerable<Order>> GetOrdersByClientIdAsync(int clientId);
     }

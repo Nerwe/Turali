@@ -2,7 +2,7 @@
 
 namespace Turali.Repositories
 {
-    public interface IRoomRepository
+    public interface IRoomRepository : IRepositoryBase<Room>
     {
         Task<IEnumerable<Room>> GetAvailableRoomsAsync();
     }

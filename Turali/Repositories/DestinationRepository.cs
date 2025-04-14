@@ -3,7 +3,7 @@ using Turali.Models;
 
 namespace Turali.Repositories
 {
-    public class DestinationRepository(TuraliDBContext context) 
+    public class DestinationRepository(TuraliDBContext context)
         : RepositoryBase<Destination>(context), IDestinationRepository
     {
     }

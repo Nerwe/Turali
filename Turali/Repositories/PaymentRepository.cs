@@ -4,7 +4,7 @@ using Turali.Models;
 
 namespace Turali.Repositories
 {
-    public class PaymentRepository(TuraliDBContext context) 
+    public class PaymentRepository(TuraliDBContext context)
         : RepositoryBase<Payment>(context), IPaymentRepository
     {
         public async Task<IEnumerable<Payment>> GetPaymentsByClientIdAsync(int clientId)

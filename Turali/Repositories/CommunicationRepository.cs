@@ -4,7 +4,7 @@ using Turali.Models;
 
 namespace Turali.Repositories
 {
-    public class CommunicationRepository(TuraliDBContext context) 
+    public class CommunicationRepository(TuraliDBContext context)
         : RepositoryBase<Communication>(context), ICommunicationRepository
     {
         public async Task<IEnumerable<Communication>> GetCommunicationsByClientIdAsync(int clientId)

@@ -4,7 +4,7 @@ using Turali.Models;
 
 namespace Turali.Repositories
 {
-    public class RoomRepository(TuraliDBContext context) 
+    public class RoomRepository(TuraliDBContext context)
         : RepositoryBase<Room>(context), IRoomRepository
     {
         public async Task<IEnumerable<Room>> GetAvailableRoomsAsync()

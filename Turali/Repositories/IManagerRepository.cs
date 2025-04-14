@@ -2,7 +2,7 @@
 
 namespace Turali.Repositories
 {
-    public interface IManagerRepository
+    public interface IManagerRepository : IRepositoryBase<Manager>
     {
         Task<IEnumerable<Manager>> GetActiveManagersAsync();
     }

@@ -2,7 +2,7 @@
 
 namespace Turali.Repositories
 {
-    public interface IDocumentRepository
+    public interface IDocumentRepository : IRepositoryBase<Document>
     {
         Task<IEnumerable<Document>> GetDocumentsByClientIdAsync(int clientId);
     }

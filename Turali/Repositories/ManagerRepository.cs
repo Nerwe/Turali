@@ -4,7 +4,7 @@ using Turali.Models;
 
 namespace Turali.Repositories
 {
-    public class ManagerRepository(TuraliDBContext context) 
+    public class ManagerRepository(TuraliDBContext context)
         : RepositoryBase<Manager>(context), IManagerRepository
     {
         public async Task<IEnumerable<Manager>> GetActiveManagersAsync()

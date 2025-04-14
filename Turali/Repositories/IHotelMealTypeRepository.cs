@@ -2,7 +2,7 @@
 
 namespace Turali.Repositories
 {
-    public interface IHotelMealTypeRepository
+    public interface IHotelMealTypeRepository : IRepositoryBase<HotelMealType>
     {
         Task<IEnumerable<HotelMealType>> GetByHotelIdAsync(int hotelId);
     }

@@ -1,9 +1,37 @@
-﻿<Application x:Class="Turali.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Turali"
-             StartupUri="MainWindow.xaml">
+﻿<Application
+    x:Class="Turali.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Turali"
+    xmlns:view="clr-namespace:Turali.Views"
+    xmlns:vm="clr-namespace:Turali.ViewModels"
+    xmlns:vm1="clr-namespace:Turali.ViewModels.Client"
+    xmlns:vm2="clr-namespace:Turali.ViewModels.Order"
+    xmlns:vm3="clr-namespace:Turali.ViewModels.Tour">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type vm:MainViewModel}">
+                <view:MainView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:DashboardViewModel}">
+                <view:DashboardView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm1:ClientsViewModel}">
+                <view:ClientsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm2:OrdersViewModel}">
+                <view:OrdersView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm3:ToursViewModel}">
+                <view:ToursView />
+            </DataTemplate>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/ButtonStyles.xaml" />
+                <ResourceDictionary Source="Styles/TextBoxStyles.xaml" />
+                <ResourceDictionary Source="Styles/ScrollBarStyles.xaml" />
+                <ResourceDictionary Source="Styles/UIColors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
