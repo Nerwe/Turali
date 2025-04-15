@@ -43,21 +43,6 @@
                     </StackPanel>
                 </RadioButton>
                 <RadioButton
-                    Command="{Binding OrdersViewCommand}"
-                    Style="{StaticResource menuRadioButton}"
-                    Tag="White">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:IconImage
-                            Margin="10,0,0,0"
-                            Icon="ListUl"
-                            Style="{StaticResource menuButtonIcon}" />
-                        <TextBlock
-                            Margin="10,0,0,0"
-                            Style="{StaticResource menuButtonText}"
-                            Text="Orders" />
-                    </StackPanel>
-                </RadioButton>
-                <RadioButton
                     Command="{Binding ManagersViewCommand}"
                     Style="{StaticResource menuRadioButton}"
                     Tag="White">
@@ -85,6 +70,21 @@
                             Margin="10,0,0,0"
                             Style="{StaticResource menuButtonText}"
                             Text="Tours" />
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton
+                    Command="{Binding OrdersViewCommand}"
+                    Style="{StaticResource menuRadioButton}"
+                    Tag="White">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage
+                            Margin="10,0,0,0"
+                            Icon="ListUl"
+                            Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            Style="{StaticResource menuButtonText}"
+                            Text="Orders" />
                     </StackPanel>
                 </RadioButton>
                 <RadioButton

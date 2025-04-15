@@ -7,7 +7,8 @@
     xmlns:vm="clr-namespace:Turali.ViewModels"
     xmlns:vm1="clr-namespace:Turali.ViewModels.Client"
     xmlns:vm2="clr-namespace:Turali.ViewModels.Order"
-    xmlns:vm3="clr-namespace:Turali.ViewModels.Tour">
+    xmlns:vm3="clr-namespace:Turali.ViewModels.Tour"
+    xmlns:vm4="clr-namespace:Turali.ViewModels.Manager">
     <Application.Resources>
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type vm:MainViewModel}">
@@ -19,11 +20,17 @@
             <DataTemplate DataType="{x:Type vm1:ClientsViewModel}">
                 <view:ClientsView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm1:ClientDetailsViewModel}">
+                <view:ClientDetailsView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vm2:OrdersViewModel}">
                 <view:OrdersView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm3:ToursViewModel}">
                 <view:ToursView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm4:ManagersViewModel}">
+                <view:ManagersView />
             </DataTemplate>
 
             <ResourceDictionary.MergedDictionaries>

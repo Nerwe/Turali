@@ -46,7 +46,7 @@ namespace Turali.ViewModels
         }
 
         //Clients
-        public ICommand ClientDetailViewCommand { get; }
+        public ICommand ClientDetailsViewCommand { get; }
         public ICommand ClientsViewCommand { get; }
         public ICommand NewClientViewCommand { get; }
 
@@ -89,7 +89,7 @@ namespace Turali.ViewModels
             _currentOrder = currentOrder;
 
             ClientsViewCommand = new SyncCommand(ExecuteClientsViewCommand);
-            ClientDetailViewCommand = new SyncCommand(ExecuteClientDetailViewCommand);
+            ClientDetailsViewCommand = new SyncCommand(ExecuteClientDetailsViewCommand);
             NewClientViewCommand = new SyncCommand(ExecuteNewClientViewCommand);
 
             ManagersViewCommand = new SyncCommand(ExecuteManagersViewCommand);
@@ -113,7 +113,7 @@ namespace Turali.ViewModels
             CurrentViewModel = new ClientsViewModel(this, _clientRepository, _currentClient);
         }
 
-        private void ExecuteClientDetailViewCommand(object obj)
+        private void ExecuteClientDetailsViewCommand(object obj)
         {
             Title = "Client Details";
             CurrentViewModel = new ClientDetailsViewModel(_clientRepository, _currentClient);
@@ -164,7 +164,7 @@ namespace Turali.ViewModels
         private void ExecuteOrdersViewCommand(object obj)
         {
             Title = "Orders";
-            CurrentViewModel = new OrdersViewModel(this, _orderRepository, _currentOrder);
+            CurrentViewModel = new OrdersViewModel(this, _orderRepository, _currentOrder, _managerRepository, _tourRepository, _clientRepository);
         }
 
         private void ExecuteOrderDetailsViewCommand(object obj)

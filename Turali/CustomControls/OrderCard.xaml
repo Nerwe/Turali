@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Turali.CustomControls.ClientCard"
+    x:Class="Turali.CustomControls.OrderCard"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:Turali.CustomControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="300"
-    Height="260"
+    Height="280"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style x:Key="CardStyle" TargetType="Border">
@@ -24,7 +24,7 @@
             </Setter>
         </Style>
 
-        <Style x:Key="NameStyle" TargetType="TextBlock">
+        <Style x:Key="TitleStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16" />
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="Foreground" Value="#E2E8F0" />
@@ -45,88 +45,92 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <StackPanel
+                Grid.Row="0"
+                Margin="0,0,0,10"
+                Orientation="Horizontal">
+                <TextBlock Style="{StaticResource TitleStyle}" Text="Order #" />
+                <TextBlock
+                    d:Text="999"
+                    Style="{StaticResource TitleStyle}"
+                    Text="{Binding Id}" />
+            </StackPanel>
 
-                <Grid Width="40" Height="40">
-                    <Ellipse
-                        Width="40"
-                        Height="40"
-                        Fill="#E2E8F0" />
-                    <fa:IconImage
-                        Width="20"
-                        Height="20"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Foreground="#2D3748"
-                        Icon="UserAlt" />
-                </Grid>
-
-                <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Margin="0,0,5,0"
-                            d:Text="John"
-                            Style="{StaticResource NameStyle}"
-                            Text="{Binding FirstName}" />
-                        <TextBlock
-                            d:Text="Doe"
-                            Style="{StaticResource NameStyle}"
-                            Text="{Binding LastName}" />
-                    </StackPanel>
-                    <TextBlock
-                        d:Text="john.doe@example.com"
-                        Style="{StaticResource InfoStyle}"
-                        Text="{Binding Email}" />
-                </StackPanel>
-            </Grid>
-
-            <StackPanel Grid.Row="1" Margin="0,15,0,0">
+            <StackPanel Grid.Row="1" Margin="0,10,0,0">
                 <StackPanel Margin="0,5" Orientation="Horizontal">
                     <TextBlock
                         FontWeight="SemiBold"
                         Style="{StaticResource InfoStyle}"
-                        Text="Phone: " />
+                        Text="Client: " />
                     <TextBlock
-                        d:Text="+1 (555) 123-4567"
+                        Margin="0,0,5,0"
+                        d:Text="John"
                         Style="{StaticResource InfoStyle}"
-                        Text="{Binding Phone}" />
+                        Text="{Binding Client.FirstName}" />
+                    <TextBlock
+                        d:Text="Doe"
+                        Style="{StaticResource InfoStyle}"
+                        Text="{Binding Client.LastName}" />
                 </StackPanel>
 
                 <StackPanel Margin="0,5" Orientation="Horizontal">
                     <TextBlock
                         FontWeight="SemiBold"
                         Style="{StaticResource InfoStyle}"
-                        Text="Birth Date: " />
+                        Text="Tour: " />
                     <TextBlock
-                        d:Text="15.03.1985"
+                        d:Text="Amazing Tour"
                         Style="{StaticResource InfoStyle}"
-                        Text="{Binding BirthDate, StringFormat=dd.MM.yyyy}" />
+                        Text="{Binding Tour.Name}" />
                 </StackPanel>
 
                 <StackPanel Margin="0,5" Orientation="Horizontal">
                     <TextBlock
                         FontWeight="SemiBold"
                         Style="{StaticResource InfoStyle}"
-                        Text="Passport: " />
+                        Text="Manager: " />
                     <TextBlock
-                        d:Text="AB1234567"
+                        Margin="0,0,5,0"
+                        d:Text="Alice"
                         Style="{StaticResource InfoStyle}"
-                        Text="{Binding PassportNumber}" />
+                        Text="{Binding Manager.FirstName}" />
+                    <TextBlock
+                        d:Text="Smith"
+                        Style="{StaticResource InfoStyle}"
+                        Text="{Binding Manager.LastName}" />
                 </StackPanel>
 
-                <StackPanel Margin="0,5">
+                <StackPanel Margin="0,5" Orientation="Horizontal">
                     <TextBlock
                         FontWeight="SemiBold"
                         Style="{StaticResource InfoStyle}"
-                        Text="Address: " />
+                        Text="Order Date: " />
                     <TextBlock
-                        d:Text="123 Main St, City, Country"
+                        d:Text="15.04.2025"
                         Style="{StaticResource InfoStyle}"
-                        Text="{Binding Address}" />
+                        Text="{Binding OrderDate, StringFormat=dd.MM.yyyy}" />
+                </StackPanel>
+
+                <StackPanel Margin="0,5" Orientation="Horizontal">
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        Style="{StaticResource InfoStyle}"
+                        Text="Status: " />
+                    <TextBlock
+                        d:Text="Pending"
+                        Style="{StaticResource InfoStyle}"
+                        Text="{Binding Status}" />
+                </StackPanel>
+
+                <StackPanel Margin="0,5" Orientation="Horizontal">
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        Style="{StaticResource InfoStyle}"
+                        Text="Total Price: " />
+                    <TextBlock
+                        d:Text="$1500.00"
+                        Style="{StaticResource InfoStyle}"
+                        Text="{Binding TotalPrice, StringFormat=C}" />
                 </StackPanel>
             </StackPanel>
 
@@ -137,8 +141,6 @@
                 Orientation="Horizontal">
                 <Button
                     Width="80"
-                    Command="{Binding DataContext.ShowClientDetailsViewCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                    CommandParameter="{Binding}"
                     Content="Details"
                     Style="{StaticResource ActionButtonStyle}" />
             </StackPanel>

@@ -2,9 +2,9 @@
 
 namespace Turali.Views
 {
-    /// <summary>
-    /// Логика взаимодействия для DashboardView.xaml
-    /// </summary>
+    /// <summary>  
+    /// Логика взаимодействия для DashboardView.xaml  
+    /// </summary>  
     public partial class DashboardView : UserControl
     {
         public DashboardView()

@@ -12,23 +12,66 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Border>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Clients}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel HorizontalAlignment="Center" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <customcontrol:ClientCard
-                            Width="Auto"
-                            Margin="10"
-                            HorizontalAlignment="Stretch" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+            <Grid Grid.Row="0" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox
+                    Grid.Column="0"
+                    Height="30"
+                    Margin="0,0,10,0"
+                    HorizontalAlignment="Stretch"
+                    Style="{StaticResource mainTextBox}"
+                    Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding SearchCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+
+                <Button
+                    Grid.Column="1"
+                    Width="80"
+                    Height="30"
+                    Command="{Binding SearchCommand}"
+                    Content="Search"
+                    Style="{StaticResource ActionButtonStyle}" />
+
+                <Button
+                    Grid.Column="2"
+                    Width="80"
+                    Height="30"
+                    Margin="10,0,0,0"
+                    Command="{Binding ClearSearchCommand}"
+                    Content="Clear"
+                    Style="{StaticResource ActionButtonStyle}" />
+            </Grid>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Clients}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Center" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <customcontrol:ClientCard
+                                Width="Auto"
+                                Margin="10"
+                                HorizontalAlignment="Stretch" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
     </Border>
 </UserControl>
