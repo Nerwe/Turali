@@ -116,7 +116,7 @@ namespace Turali.ViewModels
         private void ExecuteClientDetailsViewCommand(object obj)
         {
             Title = "Client Details";
-            CurrentViewModel = new ClientDetailsViewModel(_clientRepository, _currentClient);
+            CurrentViewModel = new ClientDetailsViewModel(_clientRepository, _currentClient, _orderRepository, _managerRepository, _tourRepository);
         }
 
         private void ExecuteNewClientViewCommand(object obj)

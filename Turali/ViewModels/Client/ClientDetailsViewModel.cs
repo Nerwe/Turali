@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Turali.Base;
 using Turali.Helpers;
 using Turali.Repositories;
@@ -8,9 +9,24 @@ namespace Turali.ViewModels.Client
     public class ClientDetailsViewModel : BaseViewModel
     {
         private readonly IClientRepository _clientRepository;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IManagerRepository _managerRepository;
+        private readonly ITourRepository _tourRepository;
 
         private CurrentClient _currentClient;
         private Models.Client _client = new();
+
+        private ObservableCollection<Models.Order> _orders = [];
+
+        public ObservableCollection<Models.Order> Orders
+        {
+            get => _orders;
+            set
+            {
+                _orders = value;
+                OnPropertyChanged(nameof(Orders));
+            }
+        }
 
         public Models.Client Client
         {
@@ -24,16 +40,51 @@ namespace Turali.ViewModels.Client
 
         public ICommand ShowClientDetailsCommand { get; }
         public ICommand SaveChangesCommand { get; }
+        public ICommand ShowClientOrdersCommand { get; }
 
-        public ClientDetailsViewModel(IClientRepository clientRepository, CurrentClient currentClient)
+        public ClientDetailsViewModel(IClientRepository clientRepository,  CurrentClient currentClient, IOrderRepository orderRepository, IManagerRepository managerRepository, ITourRepository tourRepository)
         {
             _clientRepository = clientRepository;
+            _orderRepository = orderRepository;
             _currentClient = currentClient;
+            _managerRepository = managerRepository;
+            _tourRepository = tourRepository;
 
             ShowClientDetailsCommand = new SyncCommand(ExecuteShowClientDetailsCommand);
             SaveChangesCommand = new SyncCommand(ExecuteSaveChangesCommand);
+            ShowClientOrdersCommand = new AsyncCommand(ExecuteShowClientOrdersCommand);
 
-            ExecuteShowClientDetailsCommand(new object());
+            ShowClientDetailsCommand.Execute(null);
+            ShowClientOrdersCommand.Execute(null);
+        }
+
+        private async Task ExecuteShowClientOrdersCommand()
+        {
+            if (_currentClient.Client == null) return;
+
+            var orders = await _orderRepository.GetOrdersByClientIdAsync(_currentClient.Client.Id);
+
+            foreach (var order in orders)
+            {
+                if (order.ClientId > 0)
+                {
+                    var client = await _clientRepository.GetByIdAsync(order.ClientId);
+                    order.Client = client ?? new Models.Client { FirstName = "Unknown", LastName = "Unknown" };
+                }
+                if (order.ManagerId > 0)
+                {
+                    var manager = await _managerRepository.GetByIdAsync(order.ManagerId);
+                    order.Manager = manager ?? new Models.Manager { FirstName = "Unknown", LastName = "Unknown" };
+                }
+
+                if (order.TourId > 0)
+                {
+                    var tour = await _tourRepository.GetByIdAsync(order.TourId);
+                    order.Tour = tour ?? new Models.Tour { Name = "Unknown" };
+                }
+            }
+
+            Orders = [.. orders];
         }
 
         private void ExecuteSaveChangesCommand(object obj)

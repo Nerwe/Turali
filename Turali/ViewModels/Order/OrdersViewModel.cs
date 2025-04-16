@@ -17,7 +17,6 @@ namespace Turali.ViewModels.Order
 
         private ObservableCollection<Models.Order> _orders = [];
 
-
         public ObservableCollection<Models.Order> Orders
         {
             get => _orders;
