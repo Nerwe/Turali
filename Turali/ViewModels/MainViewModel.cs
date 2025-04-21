@@ -13,6 +13,7 @@ namespace Turali.ViewModels
         private readonly IManagerRepository _managerRepository = null!;
         private readonly ITourRepository _tourRepository = null!;
         private readonly IOrderRepository _orderRepository = null!;
+        private readonly IReviewRepository _reviewRepository = null!;
 
         private readonly CurrentClient _currentClient = null!;
         private readonly CurrentManager _currentManager = null!;
@@ -36,6 +37,7 @@ namespace Turali.ViewModels
             IManagerRepository managerRepository,
             ITourRepository tourRepository,
             IOrderRepository orderRepository,
+            IReviewRepository reviewRepositor,
             CurrentClient currentClient,
             CurrentManager currentManager,
             CurrentTour currentTour,
@@ -45,6 +47,7 @@ namespace Turali.ViewModels
             _managerRepository = managerRepository;
             _tourRepository = tourRepository;
             _orderRepository = orderRepository;
+            _reviewRepository = reviewRepositor;
 
             _currentClient = currentClient;
             _currentManager = currentManager;
@@ -58,7 +61,7 @@ namespace Turali.ViewModels
 
         private void ExecuteDashboardViewCommand(object obj)
         {
-            CurrentViewModel = new DashboardViewModel(_clientRepository, _managerRepository, _tourRepository, _orderRepository, _currentClient, _currentManager, _currentTour, _currentOrder);
+            CurrentViewModel = new DashboardViewModel(_clientRepository, _managerRepository, _tourRepository, _orderRepository, _reviewRepository, _currentClient, _currentManager, _currentTour, _currentOrder);
         }
     }
 }

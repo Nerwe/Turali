@@ -240,7 +240,7 @@
                             <TextBlock
                                 d:Text="999"
                                 Style="{StaticResource InfoStyle}"
-                                Text="{Binding Client.FirstName}" />
+                                Text="{Binding OrderCount}" />
                         </StackPanel>
 
                         <StackPanel Margin="0,5" Orientation="Horizontal">
@@ -251,7 +251,7 @@
                             <TextBlock
                                 d:Text="777"
                                 Style="{StaticResource InfoStyle}"
-                                Text="{Binding Client.FirstName}" />
+                                Text="{Binding ReviewCount}" />
                         </StackPanel>
                     </StackPanel>
                 </Border>

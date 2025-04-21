@@ -12,11 +12,35 @@ namespace Turali.ViewModels.Client
         private readonly IOrderRepository _orderRepository;
         private readonly IManagerRepository _managerRepository;
         private readonly ITourRepository _tourRepository;
+        private readonly IReviewRepository _reviewRepository;
 
         private CurrentClient _currentClient;
         private Models.Client _client = new();
 
+        private int _orderCount;
+        private int _reviewCount;
+
         private ObservableCollection<Models.Order> _orders = [];
+
+        public int OrderCount
+        {
+            get => _orderCount;
+            set
+            {
+                _orderCount = value;
+                OnPropertyChanged(nameof(OrderCount));
+            }
+        }
+
+        public int ReviewCount
+        {
+            get => _reviewCount;
+            set
+            {
+                _reviewCount = value;
+                OnPropertyChanged(nameof(ReviewCount));
+            }
+        }
 
         public ObservableCollection<Models.Order> Orders
         {
@@ -41,21 +65,44 @@ namespace Turali.ViewModels.Client
         public ICommand ShowClientDetailsCommand { get; }
         public ICommand SaveChangesCommand { get; }
         public ICommand ShowClientOrdersCommand { get; }
+        public ICommand ShowClientReviewsCommand { get; }
 
-        public ClientDetailsViewModel(IClientRepository clientRepository,  CurrentClient currentClient, IOrderRepository orderRepository, IManagerRepository managerRepository, ITourRepository tourRepository)
+        public ClientDetailsViewModel(
+            IClientRepository clientRepository,
+            CurrentClient currentClient,
+            IOrderRepository orderRepository,
+            IManagerRepository managerRepository,
+            ITourRepository tourRepository,
+            IReviewRepository reviewRepository)
         {
             _clientRepository = clientRepository;
             _orderRepository = orderRepository;
             _currentClient = currentClient;
             _managerRepository = managerRepository;
             _tourRepository = tourRepository;
+            _reviewRepository = reviewRepository;
 
             ShowClientDetailsCommand = new SyncCommand(ExecuteShowClientDetailsCommand);
             SaveChangesCommand = new SyncCommand(ExecuteSaveChangesCommand);
             ShowClientOrdersCommand = new AsyncCommand(ExecuteShowClientOrdersCommand);
+            ShowClientReviewsCommand = new AsyncCommand(ExecuteShowClientReviewsCommand);
 
-            ShowClientDetailsCommand.Execute(null);
-            ShowClientOrdersCommand.Execute(null);
+            Initialize();
+        }
+
+        private async void Initialize()
+        {
+            ExecuteShowClientDetailsCommand(null);
+            await ExecuteShowClientOrdersCommand();
+            await ExecuteShowClientReviewsCommand();
+        }
+
+        private async Task ExecuteShowClientReviewsCommand()
+        {
+            if (_currentClient.Client == null) return;
+
+            var reviews = await _reviewRepository.GetReviewsByClientIdAsync(_currentClient.Client.Id);
+            ReviewCount = reviews.Count();
         }
 
         private async Task ExecuteShowClientOrdersCommand()
@@ -71,6 +118,7 @@ namespace Turali.ViewModels.Client
                     var client = await _clientRepository.GetByIdAsync(order.ClientId);
                     order.Client = client ?? new Models.Client { FirstName = "Unknown", LastName = "Unknown" };
                 }
+
                 if (order.ManagerId > 0)
                 {
                     var manager = await _managerRepository.GetByIdAsync(order.ManagerId);
@@ -84,7 +132,8 @@ namespace Turali.ViewModels.Client
                 }
             }
 
-            Orders = [.. orders];
+            Orders = new ObservableCollection<Models.Order>(orders);
+            OrderCount = orders.Count();
         }
 
         private void ExecuteSaveChangesCommand(object obj)

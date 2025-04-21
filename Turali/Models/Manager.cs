@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Turali.Models
 {
@@ -27,6 +28,9 @@ namespace Turali.Models
         public bool IsActive { get; set; } = true;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        [NotMapped]
+        public double? AverageRating { get; set; }
 
         // Навигационные свойства
         public virtual ICollection<Order> Orders { get; set; } = [];

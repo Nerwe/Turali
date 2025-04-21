@@ -17,6 +17,7 @@ namespace Turali.ViewModels
         private readonly IManagerRepository _managerRepository = null!;
         private readonly ITourRepository _tourRepository = null!;
         private readonly IOrderRepository _orderRepository = null!;
+        private readonly IReviewRepository _reviewRepository = null!;
 
         private readonly CurrentClient _currentClient = null!;
         private readonly CurrentManager _currentManager = null!;
@@ -71,6 +72,7 @@ namespace Turali.ViewModels
             IManagerRepository managerRepository,
             ITourRepository tourRepository,
             IOrderRepository orderRepository,
+            IReviewRepository reviewRepository,
             CurrentClient currentClient,
             CurrentManager currentManager,
             CurrentTour currentTour,
@@ -82,6 +84,7 @@ namespace Turali.ViewModels
             _managerRepository = managerRepository;
             _tourRepository = tourRepository;
             _orderRepository = orderRepository;
+            _reviewRepository = reviewRepository;
 
             _currentClient = currentClient;
             _currentManager = currentManager;
@@ -105,18 +108,19 @@ namespace Turali.ViewModels
             NewOrderViewCommand = new SyncCommand(ExecuteNewOrderViewCommand);
 
             ClientsViewCommand.Execute(null);
+            _reviewRepository = reviewRepository;
         }
 
         private void ExecuteClientsViewCommand(object obj)
         {
             Title = "Clients";
-            CurrentViewModel = new ClientsViewModel(this, _clientRepository, _currentClient);
+            CurrentViewModel = new ClientsViewModel(this, _clientRepository, _reviewRepository, _currentClient);
         }
 
         private void ExecuteClientDetailsViewCommand(object obj)
         {
             Title = "Client Details";
-            CurrentViewModel = new ClientDetailsViewModel(_clientRepository, _currentClient, _orderRepository, _managerRepository, _tourRepository);
+            CurrentViewModel = new ClientDetailsViewModel(_clientRepository, _currentClient, _orderRepository, _managerRepository, _tourRepository, _reviewRepository);
         }
 
         private void ExecuteNewClientViewCommand(object obj)

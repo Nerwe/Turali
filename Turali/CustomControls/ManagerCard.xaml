@@ -144,7 +144,7 @@
                     <TextBlock
                         d:Text="4.7"
                         Style="{StaticResource InfoStyle}"
-                        Text="{Binding Rating}" />
+                        Text="{Binding AverageRating}" />
                     <TextBlock Foreground="Yellow" Text="★" />
                 </StackPanel>
             </StackPanel>

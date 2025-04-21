@@ -11,5 +11,13 @@ namespace Turali.Repositories
         {
             return await _dbSet.Where(m => m.IsActive).ToListAsync();
         }
+
+        public async Task<double?> GetAverageRatingAsync(int managerId)
+        {
+            return await _context.Set<Order>()
+                .Where(o => o.ManagerId == managerId)
+                .SelectMany(o => o.Tour.Reviews)
+                .AverageAsync(r => (double?)r.Rating);
+        }
     }
 }

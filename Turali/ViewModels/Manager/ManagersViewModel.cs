@@ -57,7 +57,14 @@ namespace Turali.ViewModels.Manager
 
         private async Task ExecuteShowManagersCommand()
         {
-            Managers = [.. await _managerRepository.GetAllAsync()];
+            var managers = await _managerRepository.GetAllAsync();
+
+            foreach (var manager in managers)
+            {
+                manager.AverageRating = await _managerRepository.GetAverageRatingAsync(manager.Id);
+            }
+
+            Managers = [.. managers];
         }
 
         private void ExecuteShowManagerDetailsViewCommand(object obj)
