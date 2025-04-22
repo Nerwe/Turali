@@ -72,7 +72,7 @@ namespace Turali.ViewModels.Manager
             if (obj is Models.Manager manager)
             {
                 _currentManager.Manager = manager;
-                _dashboardViewModel.CurrentViewModel = new ManagerDetailsViewModel(_managerRepository, _currentManager);
+                _dashboardViewModel.ManagerDetailsCommand.Execute(null);
             }
         }
 

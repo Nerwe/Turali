@@ -18,6 +18,7 @@ namespace Turali.ViewModels
         private readonly ITourRepository _tourRepository = null!;
         private readonly IOrderRepository _orderRepository = null!;
         private readonly IReviewRepository _reviewRepository = null!;
+        private readonly ITransportTypeRepository _transportTypeRepository = null!;
 
         private readonly CurrentClient _currentClient = null!;
         private readonly CurrentManager _currentManager = null!;
@@ -76,7 +77,8 @@ namespace Turali.ViewModels
             CurrentClient currentClient,
             CurrentManager currentManager,
             CurrentTour currentTour,
-            CurrentOrder currentOrder)
+            CurrentOrder currentOrder,
+            ITransportTypeRepository transportTypeRepository)
         {
             _currentViewModel = new BaseViewModel();
 
@@ -85,6 +87,7 @@ namespace Turali.ViewModels
             _tourRepository = tourRepository;
             _orderRepository = orderRepository;
             _reviewRepository = reviewRepository;
+            _transportTypeRepository = transportTypeRepository;
 
             _currentClient = currentClient;
             _currentManager = currentManager;
@@ -114,7 +117,7 @@ namespace Turali.ViewModels
         private void ExecuteClientsViewCommand(object obj)
         {
             Title = "Clients";
-            CurrentViewModel = new ClientsViewModel(this, _clientRepository, _reviewRepository, _currentClient);
+            CurrentViewModel = new ClientsViewModel(this, _clientRepository, _currentClient);
         }
 
         private void ExecuteClientDetailsViewCommand(object obj)
@@ -138,7 +141,7 @@ namespace Turali.ViewModels
         private void ExecuteManagerDetailsCommand(object obj)
         {
             Title = "Manager Details";
-            CurrentViewModel = new ManagerDetailsViewModel(_managerRepository, _currentManager);
+            CurrentViewModel = new ManagerDetailsViewModel(_managerRepository, _orderRepository, _clientRepository, _tourRepository, _currentManager);
         }
 
         private void ExecuteNewManagerViewCommand(object obj)
@@ -180,7 +183,7 @@ namespace Turali.ViewModels
         private void ExecuteNewOrderViewCommand(object obj)
         {
             Title = "New Order";
-            CurrentViewModel = new NewOrderViewModel(_orderRepository);
+            CurrentViewModel = new NewOrderViewModel(this, _orderRepository, _clientRepository, _tourRepository, _managerRepository, _transportTypeRepository);
         }
     }
 }

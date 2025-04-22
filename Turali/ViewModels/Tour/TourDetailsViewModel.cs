@@ -29,13 +29,8 @@ namespace Turali.ViewModels.Tour
             _tourRepository = tourRepository;
             _currentTour = currentTour;
             ShowTourDetailsCommand = new SyncCommand(ExecuteShowTourDetailsCommand);
-            SaveChangesCommand = new SyncCommand(ExecuteSaveChangesCommand, CanExecuteSaveChangesCommand);
+            SaveChangesCommand = new SyncCommand(ExecuteSaveChangesCommand);
             ShowTourDetailsCommand.Execute(null);
-        }
-
-        private bool CanExecuteSaveChangesCommand(object obj)
-        {
-            return true;
         }
 
         private void ExecuteShowTourDetailsCommand(object obj)

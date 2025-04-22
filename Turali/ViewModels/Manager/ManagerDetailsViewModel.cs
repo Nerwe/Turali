@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Turali.Base;
 using Turali.Helpers;
 using Turali.Repositories;
@@ -8,9 +9,36 @@ namespace Turali.ViewModels.Manager
     public class ManagerDetailsViewModel : BaseViewModel
     {
         private readonly IManagerRepository _managerRepository;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IClientRepository _clientRepository;
+        private readonly ITourRepository _tourRepository;
 
         private readonly CurrentManager _currentManager;
         private Models.Manager _manager = new();
+
+        private int _orderCount;
+
+        private ObservableCollection<Models.Order> _orders = [];
+
+        public int OrderCount
+        {
+            get => _orderCount;
+            set
+            {
+                _orderCount = value;
+                OnPropertyChanged(nameof(OrderCount));
+            }
+        }
+
+        public ObservableCollection<Models.Order> Orders
+        {
+            get => _orders;
+            set
+            {
+                _orders = value;
+                OnPropertyChanged(nameof(Orders));
+            }
+        }
 
         public Models.Manager Manager
         {
@@ -24,21 +52,57 @@ namespace Turali.ViewModels.Manager
 
         public ICommand ShowManagerDetailsCommand { get; }
         public ICommand SaveChangesCommand { get; }
+        public ICommand ShowManagerOrdersCommand { get; }
 
-        public ManagerDetailsViewModel(IManagerRepository managerRepository, CurrentManager currentManager)
+        public ManagerDetailsViewModel(IManagerRepository managerRepository,
+            IOrderRepository orderRepository,
+            IClientRepository clientRepository,
+            ITourRepository tourRepository,
+            CurrentManager currentManager)
         {
             _managerRepository = managerRepository;
             _currentManager = currentManager;
+            _orderRepository = orderRepository;
+            _clientRepository = clientRepository;
+            _tourRepository = tourRepository;
 
             ShowManagerDetailsCommand = new SyncCommand(ExecuteShowClientDetailsCommand);
-            SaveChangesCommand = new SyncCommand(ExecuteSaveChangesCommand, CanExecuteSaveChangesCommand);
+            SaveChangesCommand = new SyncCommand(ExecuteSaveChangesCommand);
+            ShowManagerOrdersCommand = new AsyncCommand(ExecuteShowMangerOrdersCommand);
 
             ShowManagerDetailsCommand.Execute(new object());
+            ShowManagerOrdersCommand.Execute(new object());
         }
 
-        private bool CanExecuteSaveChangesCommand(object obj)
+        private async Task ExecuteShowMangerOrdersCommand()
         {
-            throw new NotImplementedException();
+            if (_currentManager.Manager == null) return;
+
+            var orders = await _orderRepository.GetOrdersByManagerIdAsync(_currentManager.Manager.Id);
+
+            foreach (var order in orders)
+            {
+                if (order.ClientId > 0)
+                {
+                    var client = await _clientRepository.GetByIdAsync(order.ClientId);
+                    order.Client = client ?? new Models.Client { FirstName = "Unknown", LastName = "Unknown" };
+                }
+
+                if (order.ManagerId > 0)
+                {
+                    var manager = await _managerRepository.GetByIdAsync(order.ManagerId);
+                    order.Manager = manager ?? new Models.Manager { FirstName = "Unknown", LastName = "Unknown" };
+                }
+
+                if (order.TourId > 0)
+                {
+                    var tour = await _tourRepository.GetByIdAsync(order.TourId);
+                    order.Tour = tour ?? new Models.Tour { Name = "Unknown" };
+                }
+            }
+
+            Orders = [.. orders];
+            OrderCount = orders.Count();
         }
 
         private void ExecuteSaveChangesCommand(object obj)

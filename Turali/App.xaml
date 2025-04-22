@@ -32,12 +32,22 @@
             <DataTemplate DataType="{x:Type vm4:ManagersViewModel}">
                 <view:ManagersView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm4:ManagerDetailsViewModel}">
+                <view:ManagerDetailsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm3:TourDetailsViewModel}">
+                <view:TourDetailsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm2:NewOrderViewModel}">
+                <view:NewOrderView />
+            </DataTemplate>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/ButtonStyles.xaml" />
                 <ResourceDictionary Source="Styles/TextBoxStyles.xaml" />
                 <ResourceDictionary Source="Styles/ScrollBarStyles.xaml" />
                 <ResourceDictionary Source="Styles/UIColors.xaml" />
+                <ResourceDictionary Source="Styles/ComboBoxStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

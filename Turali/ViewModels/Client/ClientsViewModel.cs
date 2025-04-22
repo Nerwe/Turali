@@ -11,7 +11,6 @@ namespace Turali.ViewModels.Client
     {
         private readonly DashboardViewModel _dashboardViewModel;
         private readonly IClientRepository _clientRepository;
-        private readonly IReviewRepository _reviewRepository;
         private readonly CurrentClient _currentClient;
 
         private string _searchQuery = string.Empty;
@@ -42,12 +41,11 @@ namespace Turali.ViewModels.Client
         public ICommand SearchCommand { get; }
         public ICommand ClearSearchCommand { get; }
 
-        public ClientsViewModel(DashboardViewModel dashboardViewModel, IClientRepository clientRepository, IReviewRepository reviewRepository, CurrentClient currentClient)
+        public ClientsViewModel(DashboardViewModel dashboardViewModel, IClientRepository clientRepository, CurrentClient currentClient)
         {
             _dashboardViewModel = dashboardViewModel;
             _clientRepository = clientRepository;
             _currentClient = currentClient;
-            _reviewRepository = reviewRepository;
 
             ShowClientsCommand = new AsyncCommand(ExecuteShowClientsCommand);
             ShowClientDetailsViewCommand = new SyncCommand(ExecuteShowClientDetailsViewCommand);

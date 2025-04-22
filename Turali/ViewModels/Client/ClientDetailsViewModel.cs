@@ -132,7 +132,7 @@ namespace Turali.ViewModels.Client
                 }
             }
 
-            Orders = new ObservableCollection<Models.Order>(orders);
+            Orders = [.. orders];
             OrderCount = orders.Count();
         }
 

@@ -31,6 +31,8 @@ namespace Turali.Models
 
         [NotMapped]
         public double? AverageRating { get; set; }
+        [NotMapped]
+        public string FullDisplay => $"{FirstName} {LastName} {Role}";
 
         // Навигационные свойства
         public virtual ICollection<Order> Orders { get; set; } = [];

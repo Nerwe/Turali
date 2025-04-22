@@ -29,6 +29,7 @@ namespace Turali.ViewModels.Order
 
         public ICommand ShowOrdersCommand { get; }
         public ICommand ShowOrderDetailsViewCommand { get; }
+        public ICommand ShowNewOrderViewCommand { get; }
 
 
         public OrdersViewModel(DashboardViewModel dashboardViewModel, IOrderRepository orderRepository, CurrentOrder currentOrder, IManagerRepository managerRepository, ITourRepository tourRepository, IClientRepository clientRepository)
@@ -42,8 +43,14 @@ namespace Turali.ViewModels.Order
 
             ShowOrdersCommand = new AsyncCommand(ExecuteShowOrdersCommand);
             ShowOrderDetailsViewCommand = new SyncCommand(ExecuteShowOrderDetailsViewCommand);
+            ShowNewOrderViewCommand = new SyncCommand(ExecuteShowNewOrderViewCommand);
 
             ShowOrdersCommand.Execute(null);
+        }
+
+        private void ExecuteShowNewOrderViewCommand(object obj)
+        {
+            _dashboardViewModel.NewOrderViewCommand.Execute(null);
         }
 
         private async Task ExecuteShowOrdersCommand()

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Turali.Models
 {
@@ -33,6 +34,9 @@ namespace Turali.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+        [NotMapped]
+        public string FullDisplay => $"{FirstName} {LastName} {PassportNumber}";
 
         // Навигационные свойства
         public virtual ICollection<Order> Orders { get; set; } = [];

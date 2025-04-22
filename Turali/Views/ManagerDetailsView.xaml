@@ -1,15 +1,15 @@
 ﻿<UserControl
-    x:Class="Turali.Views.ClientDetailsView"
+    x:Class="Turali.Views.ManagerDetailsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:client="clr-namespace:Turali.ViewModels.Client"
     xmlns:customcontrol="clr-namespace:Turali.CustomControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
     xmlns:local="clr-namespace:Turali.Views"
+    xmlns:manager="clr-namespace:Turali.ViewModels.Manager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DataContext="{d:DesignInstance Type=client:ClientDetailsViewModel}"
-    d:DesignHeight="400"
+    d:DataContext="{d:DesignInstance Type=manager:ManagerDetailsViewModel}"
+    d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -67,6 +67,23 @@
                         VerticalAlignment="Center"
                         Foreground="#2D3748"
                         Icon="UserAlt" />
+                    <Ellipse
+                        Width="20"
+                        Height="20"
+                        Margin="0,5,5,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top">
+                        <Ellipse.Style>
+                            <Style TargetType="Ellipse">
+                                <Setter Property="Fill" Value="Green" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Manager.IsActive}" Value="False">
+                                        <Setter Property="Fill" Value="Red" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                    </Ellipse>
                 </Grid>
                 <StackPanel
                     Grid.Column="1"
@@ -78,21 +95,21 @@
                             Margin="0,0,5,0"
                             d:Text="John"
                             Style="{StaticResource NameStyle}"
-                            Text="{Binding Client.FirstName}" />
+                            Text="{Binding Manager.FirstName}" />
                         <TextBlock
                             d:Text="Doe"
                             Style="{StaticResource NameStyle}"
-                            Text="{Binding Client.LastName}" />
+                            Text="{Binding Manager.LastName}" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical">
                         <TextBlock
                             d:Text="john.doe@example.com"
                             Style="{StaticResource InfoStyle}"
-                            Text="{Binding Client.Email}" />
+                            Text="{Binding Manager.Email}" />
                         <TextBlock
                             d:Text="+1 (555) 123-4567"
                             Style="{StaticResource InfoStyle}"
-                            Text="{Binding Client.Phone}" />
+                            Text="{Binding Manager.Phone}" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel
@@ -142,7 +159,7 @@
                             <TextBlock
                                 d:Text="john.doe@example.com"
                                 Style="{StaticResource InfoStyle}"
-                                Text="{Binding Client.Email}" />
+                                Text="{Binding Manager.Email}" />
                         </StackPanel>
                         <StackPanel Margin="0,5" Orientation="Horizontal">
                             <TextBlock
@@ -152,20 +169,8 @@
                             <TextBlock
                                 d:Text="+1 (555) 123-4567"
                                 Style="{StaticResource InfoStyle}"
-                                Text="{Binding Client.Phone}" />
+                                Text="{Binding Manager.Phone}" />
                         </StackPanel>
-
-                        <StackPanel Margin="0,5" Orientation="Horizontal">
-                            <TextBlock
-                                FontWeight="SemiBold"
-                                Style="{StaticResource InfoStyle}"
-                                Text="Birth Date: " />
-                            <TextBlock
-                                d:Text="15.03.1985"
-                                Style="{StaticResource InfoStyle}"
-                                Text="{Binding Client.BirthDate, StringFormat=dd.MM.yyyy}" />
-                        </StackPanel>
-
                     </StackPanel>
                 </Border>
                 <Border
@@ -188,31 +193,21 @@
                             <TextBlock
                                 FontWeight="SemiBold"
                                 Style="{StaticResource InfoStyle}"
-                                Text="Passport: " />
+                                Text="Role: " />
                             <TextBlock
-                                d:Text="AB1234567"
+                                d:Text="Manager"
                                 Style="{StaticResource InfoStyle}"
-                                Text="{Binding Client.PassportNumber}" />
+                                Text="{Binding Manager.Role}" />
                         </StackPanel>
                         <StackPanel Margin="0,5" Orientation="Horizontal">
                             <TextBlock
                                 FontWeight="SemiBold"
                                 Style="{StaticResource InfoStyle}"
-                                Text="Passport Expiry: " />
+                                Text="Hire Date: " />
                             <TextBlock
                                 d:Text="15.03.2025"
                                 Style="{StaticResource InfoStyle}"
-                                Text="{Binding Client.PassportExpiry, StringFormat=dd.MM.yyyy}" />
-                        </StackPanel>
-                        <StackPanel Margin="0,5">
-                            <TextBlock
-                                FontWeight="SemiBold"
-                                Style="{StaticResource InfoStyle}"
-                                Text="Address: " />
-                            <TextBlock
-                                d:Text="123 Main St, City, Country"
-                                Style="{StaticResource InfoStyle}"
-                                Text="{Binding Client.Address}" />
+                                Text="{Binding Manager.HireDate, StringFormat=dd.MM.yyyy}" />
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -247,11 +242,12 @@
                             <TextBlock
                                 FontWeight="SemiBold"
                                 Style="{StaticResource InfoStyle}"
-                                Text="Rating: " />
+                                Text="Reviews: " />
                             <TextBlock
                                 d:Text="777"
                                 Style="{StaticResource InfoStyle}"
-                                Text="{Binding ReviewCount}" />
+                                Text="{Binding Manager.AverageRating}" />
+                            <TextBlock Foreground="Yellow" Text="★" />
                         </StackPanel>
                     </StackPanel>
                 </Border>

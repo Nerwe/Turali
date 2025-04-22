@@ -141,6 +141,8 @@
                 Orientation="Horizontal">
                 <Button
                     Width="80"
+                    Command="{Binding DataContext.ShowTourDetailsViewCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                    CommandParameter="{Binding}"
                     Content="Details"
                     Style="{StaticResource ActionButtonStyle}" />
             </StackPanel>
