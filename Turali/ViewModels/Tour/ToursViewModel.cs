@@ -65,7 +65,7 @@ namespace Turali.ViewModels.Tour
             if (obj is Models.Tour tour)
             {
                 _currentTour.Tour = tour;
-                _dashboardViewModel.CurrentViewModel = new TourDetailsViewModel(_tourRepository, _currentTour);
+                _dashboardViewModel.TourDetailsViewCommand.Execute(null);
             }
         }
 

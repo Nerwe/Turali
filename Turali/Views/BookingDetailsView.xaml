@@ -1,0 +1,186 @@
+﻿<UserControl
+    x:Class="Turali.Views.BookingDetailsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:booking="clr-namespace:Turali.ViewModels.Booking"
+    xmlns:customcontrol="clr-namespace:Turali.CustomControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+    xmlns:local="clr-namespace:Turali.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DataContext="{d:DesignInstance Type=booking:BookingDetailsViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="#2D3748" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect
+                        BlurRadius="10"
+                        Opacity="0.4"
+                        ShadowDepth="2"
+                        Color="Black" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="NameStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="#E2E8F0" />
+        </Style>
+
+        <Style x:Key="InfoStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="#A0AEC0" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+    </UserControl.Resources>
+    <Border Margin="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid
+                    Grid.Column="0"
+                    Width="90"
+                    Height="90">
+                    <Ellipse
+                        Width="90"
+                        Height="90"
+                        Fill="#E2E8F0" />
+                    <fa:IconImage
+                        Width="45"
+                        Height="45"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="#2D3748"
+                        Icon="Hotel" />
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Border Margin="5" Style="{StaticResource CardStyle}">
+                    <StackPanel
+                        Margin="15"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Orientation="Vertical">
+                        <StackPanel
+                            Grid.Row="0"
+                            Margin="0,0,0,10"
+                            Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource NameStyle}" Text="Booking #" />
+                            <TextBlock
+                                d:Text="999"
+                                Style="{StaticResource NameStyle}"
+                                Text="{Binding Booking.Id}" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Margin="0,10,0,0">
+                            <StackPanel Margin="0,5" Orientation="Horizontal">
+                                <TextBlock
+                                    FontWeight="SemiBold"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="Client: " />
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    d:Text="John"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="{Binding Booking.Client.FirstName}" />
+                                <TextBlock
+                                    d:Text="Doe"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="{Binding Booking.Client.LastName}" />
+                            </StackPanel>
+                            <StackPanel Margin="0,5" Orientation="Horizontal">
+                                <TextBlock
+                                    FontWeight="SemiBold"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="Order: #" />
+                                <TextBlock
+                                    d:Text="999"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="{Binding Booking.Order.Id}" />
+                            </StackPanel>
+                            <StackPanel Margin="0,5" Orientation="Horizontal">
+                                <TextBlock
+                                    FontWeight="SemiBold"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="Hotel: " />
+                                <TextBlock
+                                    d:Text="Hotel1"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="{Binding Booking.HotelName}" />
+                            </StackPanel>
+                            <StackPanel Margin="0,5" Orientation="Horizontal">
+                                <TextBlock
+                                    FontWeight="SemiBold"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="Room: #" />
+                                <TextBlock
+                                    d:Text="10"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="{Binding Booking.Room.Id}" />
+                            </StackPanel>
+                            <StackPanel Margin="0,5" Orientation="Horizontal">
+                                <TextBlock
+                                    FontWeight="SemiBold"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="Meal Type: " />
+                                <TextBlock
+                                    d:Text="All"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="{Binding Booking.TotalPrice, StringFormat=C}" />
+                            </StackPanel>
+                            <StackPanel Margin="0,5" Orientation="Horizontal">
+                                <TextBlock
+                                    FontWeight="SemiBold"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="Status: " />
+                                <TextBlock
+                                    d:Text="active"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="{Binding Booking.Status}" />
+                            </StackPanel>
+                            <StackPanel Margin="0,5" Orientation="Horizontal">
+                                <TextBlock
+                                    FontWeight="SemiBold"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="Total Price: $" />
+                                <TextBlock
+                                    d:Text="1500.00"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="{Binding Booking.TotalPrice}" />
+                            </StackPanel>
+                            <StackPanel Margin="0,5" Orientation="Horizontal">
+                                <TextBlock
+                                    FontWeight="SemiBold"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="Check In Date: " />
+                                <TextBlock
+                                    d:Text="15.04.2025"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="{Binding Booking.CheckInDate, StringFormat=dd.MM.yyyy}" />
+                            </StackPanel>
+                            <StackPanel Margin="0,5" Orientation="Horizontal">
+                                <TextBlock
+                                    FontWeight="SemiBold"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="Check Out Date: " />
+                                <TextBlock
+                                    d:Text="25.04.2025"
+                                    Style="{StaticResource InfoStyle}"
+                                    Text="{Binding Booking.CheckOutDate, StringFormat=dd.MM.yyyy}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

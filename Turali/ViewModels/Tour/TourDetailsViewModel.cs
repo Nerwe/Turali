@@ -1,13 +1,11 @@
 ﻿using System.Windows.Input;
 using Turali.Base;
 using Turali.Helpers;
-using Turali.Repositories;
 
 namespace Turali.ViewModels.Tour
 {
     public class TourDetailsViewModel : BaseViewModel
     {
-        private readonly ITourRepository _tourRepository;
         private readonly CurrentTour _currentTour;
         private Models.Tour _tour = new();
 
@@ -21,15 +19,12 @@ namespace Turali.ViewModels.Tour
             }
         }
 
-        public ICommand SaveChangesCommand { get; }
         public ICommand ShowTourDetailsCommand { get; }
 
-        public TourDetailsViewModel(ITourRepository tourRepository, CurrentTour currentTour)
+        public TourDetailsViewModel(CurrentTour currentTour)
         {
-            _tourRepository = tourRepository;
             _currentTour = currentTour;
             ShowTourDetailsCommand = new SyncCommand(ExecuteShowTourDetailsCommand);
-            SaveChangesCommand = new SyncCommand(ExecuteSaveChangesCommand);
             ShowTourDetailsCommand.Execute(null);
         }
 
@@ -37,11 +32,6 @@ namespace Turali.ViewModels.Tour
         {
             if (_currentTour.Tour == null) return;
             Tour = _currentTour.Tour;
-        }
-
-        private void ExecuteSaveChangesCommand(object obj)
-        {
-            _tourRepository.Update(Tour);
         }
     }
 }

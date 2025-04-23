@@ -35,6 +35,9 @@ namespace Turali.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+        [NotMapped]
+        public string HotelName { get; set; } = string.Empty;
+
         // Навигационные свойства
         public virtual Order Order { get; set; } = null!;
         public virtual Client Client { get; set; } = null!;

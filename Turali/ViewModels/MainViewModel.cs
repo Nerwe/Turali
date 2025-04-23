@@ -15,11 +15,16 @@ namespace Turali.ViewModels
         private readonly IOrderRepository _orderRepository = null!;
         private readonly IReviewRepository _reviewRepository = null!;
         private readonly ITransportTypeRepository _transportTypeRepository = null!;
+        private readonly IBookingRepository _bookingRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IMealTypeRepository _mealTypeRepository;
+        private readonly IHotelRepository _hotelRepository;
 
         private readonly CurrentClient _currentClient = null!;
         private readonly CurrentManager _currentManager = null!;
         private readonly CurrentTour _currentTour = null!;
         private readonly CurrentOrder _currentOrder = null!;
+        private readonly CurrentBooking _currentBooking = null!;
 
         public BaseViewModel CurrentViewModel
         {
@@ -43,7 +48,12 @@ namespace Turali.ViewModels
             CurrentManager currentManager,
             CurrentTour currentTour,
             CurrentOrder currentOrder,
-            ITransportTypeRepository transportTypeRepository)
+            CurrentBooking currentBooking,
+            ITransportTypeRepository transportTypeRepository,
+            IBookingRepository bookingRepository,
+            IRoomRepository roomRepository,
+            IMealTypeRepository mealTypeRepository,
+            IHotelRepository hotelRepository)
         {
             _clientRepository = clientRepository;
             _managerRepository = managerRepository;
@@ -51,11 +61,16 @@ namespace Turali.ViewModels
             _orderRepository = orderRepository;
             _reviewRepository = reviewRepositor;
             _transportTypeRepository = transportTypeRepository;
+            _bookingRepository = bookingRepository;
+            _roomRepository = roomRepository;
+            _mealTypeRepository = mealTypeRepository;
+            _hotelRepository = hotelRepository;
 
             _currentClient = currentClient;
             _currentManager = currentManager;
             _currentTour = currentTour;
             _currentOrder = currentOrder;
+            _currentBooking = currentBooking;
 
             DashboardViewCommand = new SyncCommand(ExecuteDashboardViewCommand);
 
@@ -64,7 +79,7 @@ namespace Turali.ViewModels
 
         private void ExecuteDashboardViewCommand(object obj)
         {
-            CurrentViewModel = new DashboardViewModel(_clientRepository, _managerRepository, _tourRepository, _orderRepository, _reviewRepository, _currentClient, _currentManager, _currentTour, _currentOrder, _transportTypeRepository);
+            CurrentViewModel = new DashboardViewModel(_clientRepository, _managerRepository, _tourRepository, _orderRepository, _reviewRepository, _currentClient, _currentManager, _currentTour, _currentOrder, _currentBooking, _transportTypeRepository, _bookingRepository, _roomRepository, _mealTypeRepository, _hotelRepository);
         }
     }
 }

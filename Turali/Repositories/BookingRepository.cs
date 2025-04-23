@@ -13,5 +13,12 @@ namespace Turali.Repositories
                 .Where(b => b.ClientId == clientId)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Booking>> GetBookingsByOrderIdAsync(int orderId)
+        {
+            return await _dbSet
+                .Where(b => b.OrderId == orderId)
+                .ToListAsync();
+        }
     }
 }

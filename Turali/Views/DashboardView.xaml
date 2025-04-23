@@ -88,6 +88,21 @@
                     </StackPanel>
                 </RadioButton>
                 <RadioButton
+                    Command="{Binding BookingsViewCommand}"
+                    Style="{StaticResource menuRadioButton}"
+                    Tag="White">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage
+                            Margin="10,0,0,0"
+                            Icon="Hotel"
+                            Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            Style="{StaticResource menuButtonText}"
+                            Text="Bookings" />
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton
                     Command="{Binding SettingsViewCommand}"
                     Style="{StaticResource menuRadioButton}"
                     Tag="White">

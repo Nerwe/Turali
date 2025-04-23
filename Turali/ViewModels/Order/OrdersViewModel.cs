@@ -85,7 +85,7 @@ namespace Turali.ViewModels.Order
             if (obj is Models.Order order)
             {
                 _currentOrder.Order = order;
-                _dashboardViewModel.CurrentViewModel = new OrderDetailsViewModel(_orderRepository, _currentOrder);
+                _dashboardViewModel.OrderDetailsViewCommand.Execute(null);
             }
         }
     }

@@ -2,6 +2,7 @@
 using Turali.Base;
 using Turali.Helpers;
 using Turali.Repositories;
+using Turali.ViewModels.Booking;
 using Turali.ViewModels.Client;
 using Turali.ViewModels.Manager;
 using Turali.ViewModels.Order;
@@ -19,11 +20,16 @@ namespace Turali.ViewModels
         private readonly IOrderRepository _orderRepository = null!;
         private readonly IReviewRepository _reviewRepository = null!;
         private readonly ITransportTypeRepository _transportTypeRepository = null!;
+        private readonly IBookingRepository _bookingRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IMealTypeRepository _mealTypeRepository;
+        private readonly IHotelRepository _hotelRepository;
 
         private readonly CurrentClient _currentClient = null!;
         private readonly CurrentManager _currentManager = null!;
         private readonly CurrentTour _currentTour = null!;
         private readonly CurrentOrder _currentOrder = null!;
+        private readonly CurrentBooking _currentBooking = null!;
 
         private string _title = string.Empty;
 
@@ -54,7 +60,7 @@ namespace Turali.ViewModels
 
 
         //Managers
-        public ICommand ManagerDetailsCommand { get; }
+        public ICommand ManagerDetailsViewCommand { get; }
         public ICommand ManagersViewCommand { get; }
         public ICommand NewManagerViewCommand { get; }
 
@@ -68,6 +74,11 @@ namespace Turali.ViewModels
         public ICommand OrdersViewCommand { get; }
         public ICommand NewOrderViewCommand { get; }
 
+        //Bookings
+        public ICommand BookingDetailsViewCommand { get; }
+        public ICommand BookingsViewCommand { get; }
+        public ICommand NewBookingViewCommand { get; }
+
         public DashboardViewModel(
             IClientRepository clientRepository,
             IManagerRepository managerRepository,
@@ -78,7 +89,12 @@ namespace Turali.ViewModels
             CurrentManager currentManager,
             CurrentTour currentTour,
             CurrentOrder currentOrder,
-            ITransportTypeRepository transportTypeRepository)
+            CurrentBooking currentBooking,
+            ITransportTypeRepository transportTypeRepository,
+            IBookingRepository bookingRepository,
+            IRoomRepository roomRepository,
+            IMealTypeRepository mealTypeRepository,
+            IHotelRepository hotelRepository)
         {
             _currentViewModel = new BaseViewModel();
 
@@ -88,18 +104,23 @@ namespace Turali.ViewModels
             _orderRepository = orderRepository;
             _reviewRepository = reviewRepository;
             _transportTypeRepository = transportTypeRepository;
+            _bookingRepository = bookingRepository;
+            _roomRepository = roomRepository;
+            _mealTypeRepository = mealTypeRepository;
+            _hotelRepository = hotelRepository;
 
             _currentClient = currentClient;
             _currentManager = currentManager;
             _currentTour = currentTour;
             _currentOrder = currentOrder;
+            _currentBooking = currentBooking;
 
             ClientsViewCommand = new SyncCommand(ExecuteClientsViewCommand);
             ClientDetailsViewCommand = new SyncCommand(ExecuteClientDetailsViewCommand);
             NewClientViewCommand = new SyncCommand(ExecuteNewClientViewCommand);
 
             ManagersViewCommand = new SyncCommand(ExecuteManagersViewCommand);
-            ManagerDetailsCommand = new SyncCommand(ExecuteManagerDetailsCommand);
+            ManagerDetailsViewCommand = new SyncCommand(ExecuteManagerDetailsCommand);
             NewManagerViewCommand = new SyncCommand(ExecuteNewManagerViewCommand);
 
             ToursViewCommand = new SyncCommand(ExecuteToursViewCommand);
@@ -110,8 +131,30 @@ namespace Turali.ViewModels
             OrderDetailsViewCommand = new SyncCommand(ExecuteOrderDetailsViewCommand);
             NewOrderViewCommand = new SyncCommand(ExecuteNewOrderViewCommand);
 
+            BookingDetailsViewCommand = new SyncCommand(ExecuteBookingDetailsViewCommand);
+            BookingsViewCommand = new SyncCommand(ExecuteBookingsViewCommand);
+            NewBookingViewCommand = new SyncCommand(ExecuteNewBookingViewCommand);
+
             ClientsViewCommand.Execute(null);
             _reviewRepository = reviewRepository;
+        }
+
+        private void ExecuteNewBookingViewCommand(object obj)
+        {
+            Title = "New Booking";
+            CurrentViewModel = new NewBookingViewModel(this, _bookingRepository, _clientRepository, _roomRepository, _orderRepository, _hotelRepository, _mealTypeRepository, _currentOrder);
+        }
+
+        private void ExecuteBookingsViewCommand(object obj)
+        {
+            Title = "Bookings";
+            CurrentViewModel = new BookingsViewModel(this, _bookingRepository, _roomRepository, _clientRepository, _orderRepository, _mealTypeRepository, _hotelRepository, _currentBooking);
+        }
+
+        private void ExecuteBookingDetailsViewCommand(object obj)
+        {
+            Title = "Booking Details";
+            CurrentViewModel = new BookingDetailsViewModel(_clientRepository, _roomRepository, _orderRepository, _mealTypeRepository, _hotelRepository, _currentBooking);
         }
 
         private void ExecuteClientsViewCommand(object obj)
@@ -159,7 +202,7 @@ namespace Turali.ViewModels
         private void ExecuteTourDetailsViewCommand(object obj)
         {
             Title = "Tour Details";
-            CurrentViewModel = new TourDetailsViewModel(_tourRepository, _currentTour);
+            CurrentViewModel = new TourDetailsViewModel(_currentTour);
         }
 
         private void ExecuteNewTourViewCommand(object obj)
@@ -177,7 +220,7 @@ namespace Turali.ViewModels
         private void ExecuteOrderDetailsViewCommand(object obj)
         {
             Title = "Order Details";
-            CurrentViewModel = new OrderDetailsViewModel(_orderRepository, _currentOrder);
+            CurrentViewModel = new OrderDetailsViewModel(this, _orderRepository, _clientRepository, _managerRepository, _tourRepository, _bookingRepository, _currentOrder, _currentBooking, _currentClient, _currentManager, _currentTour);
         }
 
         private void ExecuteNewOrderViewCommand(object obj)

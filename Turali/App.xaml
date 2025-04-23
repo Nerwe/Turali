@@ -8,7 +8,8 @@
     xmlns:vm1="clr-namespace:Turali.ViewModels.Client"
     xmlns:vm2="clr-namespace:Turali.ViewModels.Order"
     xmlns:vm3="clr-namespace:Turali.ViewModels.Tour"
-    xmlns:vm4="clr-namespace:Turali.ViewModels.Manager">
+    xmlns:vm4="clr-namespace:Turali.ViewModels.Manager"
+    xmlns:vm5="clr-namespace:Turali.ViewModels.Booking">
     <Application.Resources>
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type vm:MainViewModel}">
@@ -41,6 +42,18 @@
             <DataTemplate DataType="{x:Type vm2:NewOrderViewModel}">
                 <view:NewOrderView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm5:BookingsViewModel}">
+                <view:BookingsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm5:BookingDetailsViewModel}">
+                <view:BookingDetailsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm5:NewBookingViewModel}">
+                <view:NewBookingView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm2:OrderDetailsViewModel}">
+                <view:OrderDetailsView />
+            </DataTemplate>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/ButtonStyles.xaml" />
@@ -48,6 +61,7 @@
                 <ResourceDictionary Source="Styles/ScrollBarStyles.xaml" />
                 <ResourceDictionary Source="Styles/UIColors.xaml" />
                 <ResourceDictionary Source="Styles/ComboBoxStyles.xaml" />
+                <ResourceDictionary Source="Styles/DatePickerStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

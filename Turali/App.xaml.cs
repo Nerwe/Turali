@@ -8,6 +8,7 @@ using Turali.Data;
 using Turali.Helpers;
 using Turali.Repositories;
 using Turali.ViewModels;
+using Turali.ViewModels.Booking;
 using Turali.ViewModels.Client;
 using Turali.ViewModels.Manager;
 using Turali.ViewModels.Order;
@@ -65,6 +66,7 @@ namespace Turali
                     services.AddSingleton<CurrentManager>();
                     services.AddSingleton<CurrentTour>();
                     services.AddSingleton<CurrentOrder>();
+                    services.AddSingleton<CurrentBooking>();
 
                     services.AddTransient<MainViewModel>();
                     services.AddTransient<DashboardViewModel>();
@@ -72,14 +74,17 @@ namespace Turali
                     services.AddTransient<ManagersViewModel>();
                     services.AddTransient<ToursViewModel>();
                     services.AddTransient<OrdersViewModel>();
+                    services.AddTransient<BookingsViewModel>();
                     services.AddTransient<NewClientViewModel>();
                     services.AddTransient<NewManagerViewModel>();
                     services.AddTransient<NewTourViewModel>();
                     services.AddTransient<NewOrderViewModel>();
+                    services.AddTransient<NewBookingViewModel>();
                     services.AddTransient<ClientDetailsViewModel>();
                     services.AddTransient<ManagerDetailsViewModel>();
                     services.AddTransient<TourDetailsViewModel>();
                     services.AddTransient<OrderDetailsViewModel>();
+                    services.AddTransient<BookingDetailsViewModel>();
                 })
                 .Build();
         }
