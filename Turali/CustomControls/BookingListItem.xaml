@@ -59,11 +59,12 @@
                 Orientation="Horizontal">
                 <fa:IconImage
                     Grid.Column="0"
+                    Width="16"
+                    Height="16"
                     Margin="0,0,10,0"
                     VerticalAlignment="Center"
                     Foreground="White"
-                    Icon="Hotel"
-                    Style="{StaticResource menuButtonIcon}" />
+                    Icon="Hotel" />
                 <TextBlock
                     VerticalAlignment="Center"
                     Style="{StaticResource InfoStyle}"
@@ -81,10 +82,11 @@
                 Orientation="Horizontal">
                 <fa:IconImage
                     Grid.Column="0"
+                    Width="16"
+                    Height="16"
                     Margin="0,0,10,0"
                     Foreground="White"
-                    Icon="UserAlt"
-                    Style="{StaticResource menuButtonIcon}" />
+                    Icon="UserAlt" />
                 <TextBlock
                     VerticalAlignment="Center"
                     Style="{StaticResource InfoStyle}"
@@ -107,10 +109,11 @@
                 Orientation="Horizontal">
                 <fa:IconImage
                     Grid.Column="0"
+                    Width="16"
+                    Height="16"
                     Margin="0,0,10,0"
                     Foreground="White"
-                    Icon="ContactCard"
-                    Style="{StaticResource menuButtonIcon}" />
+                    Icon="ContactCard" />
                 <TextBlock
                     VerticalAlignment="Center"
                     Style="{StaticResource InfoStyle}"

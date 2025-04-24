@@ -11,5 +11,11 @@ namespace Turali.Repositories
         {
             return await _dbSet.Where(r => r.IsAvailable).ToListAsync();
         }
+
+        public async Task<IEnumerable<Room>> GetRoomsByHotelIdAsync(int hotelId)
+        {
+            return await _context.Rooms.Where(r => r.HotelId == hotelId).ToListAsync();
+        }
+
     }
 }

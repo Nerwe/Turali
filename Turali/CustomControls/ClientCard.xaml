@@ -137,8 +137,8 @@
                 Orientation="Horizontal">
                 <Button
                     Width="80"
-                    Command="{Binding DataContext.ShowClientDetailsViewCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                    CommandParameter="{Binding}"
+                    Command="{Binding Command, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    CommandParameter="{Binding CommandParameter, RelativeSource={RelativeSource AncestorType=UserControl}}"
                     Content="Details"
                     Style="{StaticResource ActionButtonStyle}" />
             </StackPanel>

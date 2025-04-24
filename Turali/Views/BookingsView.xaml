@@ -25,7 +25,9 @@
                         <customcontrol:BookingCard
                             Width="Auto"
                             Margin="10"
-                            HorizontalAlignment="Stretch" />
+                            HorizontalAlignment="Stretch"
+                            Command="{Binding DataContext.ShowBookingDetailsViewCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                            CommandParameter="{Binding}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

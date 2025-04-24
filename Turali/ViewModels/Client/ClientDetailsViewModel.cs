@@ -8,6 +8,7 @@ namespace Turali.ViewModels.Client
 {
     public class ClientDetailsViewModel : BaseViewModel
     {
+        private readonly DashboardViewModel _dashboardViewModel;
         private readonly IClientRepository _clientRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly IManagerRepository _managerRepository;
@@ -15,6 +16,7 @@ namespace Turali.ViewModels.Client
         private readonly IReviewRepository _reviewRepository;
 
         private CurrentClient _currentClient;
+        private CurrentOrder _currentOrder;
         private Models.Client _client = new();
 
         private int _orderCount;
@@ -66,18 +68,23 @@ namespace Turali.ViewModels.Client
         public ICommand SaveChangesCommand { get; }
         public ICommand ShowClientOrdersCommand { get; }
         public ICommand ShowClientReviewsCommand { get; }
+        public ICommand ShowOrderDetailsViewCommand { get; }
 
         public ClientDetailsViewModel(
+            DashboardViewModel dashboardViewModel,
             IClientRepository clientRepository,
             CurrentClient currentClient,
+            CurrentOrder currentOrder,
             IOrderRepository orderRepository,
             IManagerRepository managerRepository,
             ITourRepository tourRepository,
             IReviewRepository reviewRepository)
         {
+            _dashboardViewModel = dashboardViewModel;
             _clientRepository = clientRepository;
             _orderRepository = orderRepository;
             _currentClient = currentClient;
+            _currentOrder = currentOrder;
             _managerRepository = managerRepository;
             _tourRepository = tourRepository;
             _reviewRepository = reviewRepository;
@@ -86,8 +93,18 @@ namespace Turali.ViewModels.Client
             SaveChangesCommand = new SyncCommand(ExecuteSaveChangesCommand);
             ShowClientOrdersCommand = new AsyncCommand(ExecuteShowClientOrdersCommand);
             ShowClientReviewsCommand = new AsyncCommand(ExecuteShowClientReviewsCommand);
+            ShowOrderDetailsViewCommand = new SyncCommand(ExecuteShowOrderDetailsViewCommand);
 
             Initialize();
+        }
+
+        private void ExecuteShowOrderDetailsViewCommand(object obj)
+        {
+            if (obj is Models.Order order)
+            {
+                _currentOrder.Order = order;
+                _dashboardViewModel.OrderDetailsViewCommand.Execute(null);
+            }
         }
 
         private async void Initialize()

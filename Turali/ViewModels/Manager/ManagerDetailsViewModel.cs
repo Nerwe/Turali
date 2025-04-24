@@ -8,12 +8,14 @@ namespace Turali.ViewModels.Manager
 {
     public class ManagerDetailsViewModel : BaseViewModel
     {
+        private readonly DashboardViewModel _dashboardViewModel;
         private readonly IManagerRepository _managerRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly IClientRepository _clientRepository;
         private readonly ITourRepository _tourRepository;
 
         private readonly CurrentManager _currentManager;
+        private readonly CurrentOrder _currentOrder;
         private Models.Manager _manager = new();
 
         private int _orderCount;
@@ -54,14 +56,21 @@ namespace Turali.ViewModels.Manager
         public ICommand SaveChangesCommand { get; }
         public ICommand ShowManagerOrdersCommand { get; }
 
-        public ManagerDetailsViewModel(IManagerRepository managerRepository,
+        public ICommand ShowOrderDetailsViewCommand { get; }
+
+        public ManagerDetailsViewModel(
+            DashboardViewModel dashboardViewModel,
+            IManagerRepository managerRepository,
             IOrderRepository orderRepository,
             IClientRepository clientRepository,
             ITourRepository tourRepository,
-            CurrentManager currentManager)
+            CurrentManager currentManager,
+            CurrentOrder currentOrder)
         {
+            _dashboardViewModel = dashboardViewModel;
             _managerRepository = managerRepository;
             _currentManager = currentManager;
+            _currentOrder = currentOrder;
             _orderRepository = orderRepository;
             _clientRepository = clientRepository;
             _tourRepository = tourRepository;
@@ -69,9 +78,20 @@ namespace Turali.ViewModels.Manager
             ShowManagerDetailsCommand = new SyncCommand(ExecuteShowClientDetailsCommand);
             SaveChangesCommand = new SyncCommand(ExecuteSaveChangesCommand);
             ShowManagerOrdersCommand = new AsyncCommand(ExecuteShowMangerOrdersCommand);
+            ShowOrderDetailsViewCommand = new SyncCommand(ExecuteShowOrderDetailsViewCommand);
+
 
             ShowManagerDetailsCommand.Execute(new object());
             ShowManagerOrdersCommand.Execute(new object());
+        }
+
+        private void ExecuteShowOrderDetailsViewCommand(object obj)
+        {
+            if (obj is Models.Order order)
+            {
+                _currentOrder.Order = order;
+                _dashboardViewModel.OrderDetailsViewCommand.Execute(null);
+            }
         }
 
         private async Task ExecuteShowMangerOrdersCommand()

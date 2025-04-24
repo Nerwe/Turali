@@ -136,13 +136,13 @@
                         DisplayMemberPath="Name"
                         IsEditable="True"
                         ItemsSource="{Binding Hotels}"
-                        SelectedValue="{Binding Hotel, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding Hotel, UpdateSourceTrigger=PropertyChanged}"
                         SelectedValuePath="Id"
                         Style="{StaticResource ComboBoxFlatStyleOne}" />
                     <ComboBox
                         Grid.Row="2"
                         Grid.Column="1"
-                        DisplayMemberPath="Id"
+                        DisplayMemberPath="RoomNumber"
                         IsEditable="True"
                         ItemsSource="{Binding Rooms}"
                         SelectedValue="{Binding Booking.RoomId, UpdateSourceTrigger=PropertyChanged}"
@@ -160,11 +160,13 @@
                     <DatePicker
                         Grid.Row="4"
                         Grid.Column="1"
+                        VerticalAlignment="Bottom"
                         SelectedDate="{Binding Booking.CheckOutDate, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource {x:Type DatePicker}}" />
                     <DatePicker
                         Grid.Row="5"
                         Grid.Column="1"
+                        VerticalAlignment="Bottom"
                         SelectedDate="{Binding Booking.CheckInDate, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource {x:Type DatePicker}}" />
                 </Grid>
@@ -188,7 +190,7 @@
                         Orientation="Horizontal">
                         <Button
                             Width="80"
-                            Command="{Binding NewOrderCommand}"
+                            Command="{Binding NewBookingCommand}"
                             Content="Create"
                             Style="{StaticResource ActionButtonStyle}" />
                     </StackPanel>

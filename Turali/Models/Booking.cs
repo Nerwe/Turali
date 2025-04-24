@@ -21,10 +21,10 @@ namespace Turali.Models
         public int? MealTypeId { get; set; }
 
         [Required]
-        public DateTime CheckInDate { get; set; }
+        public DateTime CheckInDate { get; set; } = DateTime.UtcNow;
 
         [Required]
-        public DateTime CheckOutDate { get; set; }
+        public DateTime CheckOutDate { get; set; } = DateTime.UtcNow;
 
         public decimal? TotalPrice { get; set; }
 

@@ -67,7 +67,9 @@
                             <customcontrol:ClientCard
                                 Width="Auto"
                                 Margin="10"
-                                HorizontalAlignment="Stretch" />
+                                HorizontalAlignment="Stretch"
+                                Command="{Binding DataContext.ShowClientDetailsViewCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

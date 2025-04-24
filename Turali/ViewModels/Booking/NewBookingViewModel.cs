@@ -53,6 +53,7 @@ namespace Turali.ViewModels.Booking
             {
                 _hotel = value;
                 OnPropertyChanged(nameof(Hotel));
+                LoadRoomsForSelectedHotel();
             }
         }
 
@@ -151,6 +152,18 @@ namespace Turali.ViewModels.Booking
                 Booking.RoomId = Rooms[0].Id;
             if (MealTypes.Count > 0)
                 Booking.MealTypeId = MealTypes[0].Id;
+        }
+
+        private async void LoadRoomsForSelectedHotel()
+        {
+            if (Hotel != null)
+            {
+                Rooms = [.. await _roomRepository.GetRoomsByHotelIdAsync(Hotel.Id)];
+            }
+            else
+            {
+                Rooms = [];
+            }
         }
     }
 }

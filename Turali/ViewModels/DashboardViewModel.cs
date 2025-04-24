@@ -166,7 +166,7 @@ namespace Turali.ViewModels
         private void ExecuteClientDetailsViewCommand(object obj)
         {
             Title = "Client Details";
-            CurrentViewModel = new ClientDetailsViewModel(_clientRepository, _currentClient, _orderRepository, _managerRepository, _tourRepository, _reviewRepository);
+            CurrentViewModel = new ClientDetailsViewModel(this, _clientRepository, _currentClient, _currentOrder, _orderRepository, _managerRepository, _tourRepository, _reviewRepository);
         }
 
         private void ExecuteNewClientViewCommand(object obj)
@@ -184,7 +184,7 @@ namespace Turali.ViewModels
         private void ExecuteManagerDetailsCommand(object obj)
         {
             Title = "Manager Details";
-            CurrentViewModel = new ManagerDetailsViewModel(_managerRepository, _orderRepository, _clientRepository, _tourRepository, _currentManager);
+            CurrentViewModel = new ManagerDetailsViewModel(this, _managerRepository, _orderRepository, _clientRepository, _tourRepository, _currentManager, _currentOrder);
         }
 
         private void ExecuteNewManagerViewCommand(object obj)

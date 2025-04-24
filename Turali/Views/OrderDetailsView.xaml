@@ -9,8 +9,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:order="clr-namespace:Turali.ViewModels.Order"
     d:DataContext="{d:DesignInstance Type=order:OrderDetailsViewModel}"
-    d:DesignHeight="650"
-    d:DesignWidth="900"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style x:Key="CardStyle" TargetType="Border">
@@ -46,8 +44,13 @@
         </Style>
     </UserControl.Resources>
     <Border Margin="10">
-        <StackPanel Orientation="Vertical">
-            <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
@@ -104,17 +107,29 @@
                     </StackPanel>
                 </Border>
             </Grid>
-            <Grid>
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <customcontrol:ClientCard Grid.Column="0" DataContext="{Binding Client}" />
-                <customcontrol:TourCard Grid.Column="1" DataContext="{Binding Tour}" />
-                <customcontrol:ManagerCard Grid.Column="2" DataContext="{Binding Manager}" />
+                <customcontrol:ClientCard
+                    Grid.Column="0"
+                    Command="{Binding DataContext.ShowClientDetailsViewCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    CommandParameter="{Binding}"
+                    DataContext="{Binding Client}" />
+                <customcontrol:TourCard
+                    Grid.Column="1"
+                    Command="{Binding DataContext.ShowTourDetailsViewCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    CommandParameter="{Binding}"
+                    DataContext="{Binding Tour}" />
+                <customcontrol:ManagerCard
+                    Grid.Column="2"
+                    Command="{Binding DataContext.ShowManagerDetailsViewCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    CommandParameter="{Binding}"
+                    DataContext="{Binding Manager}" />
             </Grid>
-            <Grid>
+            <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -146,6 +161,6 @@
                     </ItemsControl>
                 </ScrollViewer>
             </Grid>
-        </StackPanel>
+        </Grid>
     </Border>
 </UserControl>
